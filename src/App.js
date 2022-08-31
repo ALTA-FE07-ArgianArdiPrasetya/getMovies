@@ -1,12 +1,8 @@
 import "./App.css";
-import NowPlayingMovies from "./pages/NowPlayingMovies";
+// import NowPlayingMovies from "./pages/NowPlayingMovies";
 
 function App() {
-  return (
-    <>
-      <NowPlayingMovies />
-    </>
-  );
+  return <>{/* <NowPlayingMovies /> */}</>;
 }
 
 export default App;
