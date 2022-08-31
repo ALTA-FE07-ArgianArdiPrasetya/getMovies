@@ -1,19 +1,14 @@
 .container-card {
-  margin: 20px;
   background-color: #282c34;
-  /* border: solid red; */
   border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  height: 350px;
 }
 
-.picture,
+.img-movie,
 .title {
   padding: 20px;
   width: 200px;
-  margin: auto;
-  cursor: pointer;
-  text-align: center;
-}
-
-.title {
-  color: white;
 }
