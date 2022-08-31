@@ -1,41 +1,52 @@
 import React, { Component } from "react";
 import CardMovies from "../components/CardMovies";
+import NavigationBar from "../components/NavigationBar";
+import axios from "axios";
 
-import "./NowPlaying.css";
+// import "./NowPlaying.css";
+const baseUrl = "https://api.themoviedb.org/";
+const page = 1;
+// const urlHeadline =
+//   baseUrl +
+//   "top-headlines?" +
+//   "country=id&" +
+//   `apiKey=${process.env.REACT_APP_API_KEY}`;
 
+let urlMovies = `${baseUrl}3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+
+// let urlMovies = `https://api.themoviedb.org/3/movie/now_playing?api_key=f8bc7465b788992612b64c92537d503b&language=en-US&page=1`;
 export default class NowPlayingMovies extends Component {
+  state = {
+    ListMovies: [],
+  };
+
+  componentDidMount() {
+    const self = this;
+    axios.get(urlMovies).then((response) => {
+      // console.log(response.data.results);
+      self.setState({
+        ListMovies: response.data.results,
+      });
+    });
+  }
+
   render() {
-    const listMovies = [
-      {
-        image:
-          "https://images.unsplash.com/photo-1611567798785-dc07e90a6b7a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c3BpZGVybWFufHx8fHx8MTY2MTg1NjI1Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200",
-        title: "Spiderman In My Home",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8Y29kaW5nfHx8fHx8MTY2MTg1NjY0Mg&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200",
-        title: "Trust Me We Are Not Hacker",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1644760504323-c6b0c09eff8f?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c3BpZGVybWFufHx8fHx8MTY2MTg1NjgzNw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200",
-        title: "Spiderman OTW Home",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1611567798785-dc07e90a6b7a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c3BpZGVybWFufHx8fHx8MTY2MTg1NjI1Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200",
-        title: "Spiderman In My Home Season 2",
-      },
-    ];
+    // const { ListMovies } = this.state;
     return (
-      <div className="container">
-        <h1>Now Playing</h1>
-        <div className="card">
-          {listMovies.map((movie) => {
-            return <CardMovies src={movie.image} title={movie.title} />;
+      <>
+        <NavigationBar />
+        <div className="d-flex flex-wrap justify-content-around mt-3">
+          {this.state.ListMovies.map((movie) => {
+            return (
+              <CardMovies
+                src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
+                title={movie.title}
+                key={movie.id}
+              />
+            );
           })}
         </div>
-      </div>
+      </>
     );
   }
 }
