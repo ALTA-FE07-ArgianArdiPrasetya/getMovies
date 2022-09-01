@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 import "./CardMovies.css";
 
@@ -16,9 +16,24 @@ export default class CardMovies extends Component {
           <img
             src={this.props.src}
             alt="this.props.title"
-            className="img-movie"
+            className="img-movie mx-auto pt-4"
           />
-          <h6 className="text-center text-white"> {this.props.title} </h6>
+          <h6 className="title  text-center text-white ">
+            {" "}
+            {this.props.title}{" "}
+          </h6>
+          <Button
+            variant="primary"
+            onClick={this.props.onClick}
+            className="my-2"
+          >
+            {" "}
+            More Details
+          </Button>
+          <Button variant="primary" onClick={this.props.onClick} className="">
+            {" "}
+            Add To Favorite
+          </Button>
         </Card>
       </div>
     );

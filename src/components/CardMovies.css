@@ -3,12 +3,15 @@
   border-radius: 5px;
   margin: 0;
   padding: 0;
-  width: 200px;
-  height: 350px;
+  width: 250px;
+  height: 470px !important;
 }
 
-.img-movie,
-.title {
-  padding: 20px;
+.img-movie {
   width: 200px;
+}
+
+.title {
+  padding: 10px;
+  padding-bottom: 0;
 }
