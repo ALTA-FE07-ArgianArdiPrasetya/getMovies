@@ -1,30 +1,37 @@
-import React, { Component } from "react";
-import CardMovies from "../components/CardMovies";
-import NavigationBar from "../components/NavigationBar";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { withRouter } from "../withRouter";
+import { useNavigate } from "react-router-dom";
+
+import NavigationBar from "../components/NavigationBar";
+import CardMovies from "../components/CardMovies";
 
 const baseUrl = "https://api.themoviedb.org/";
 const page = 1;
 
-let urlMovies = `${baseUrl}3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`;
+const NowPlayingMovies = () => {
+  const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
-class NowPlayingMovies extends Component {
-  state = {
-    ListMovies: [],
+  const getMovies = async () => {
+    await axios
+      .get(
+        `${baseUrl}3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`
+      )
+      .then((response) => {
+        setMovies(response.data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("error");
+      });
   };
 
-  componentDidMount() {
-    const self = this;
-    axios.get(urlMovies).then((response) => {
-      self.setState({
-        ListMovies: response.data.results,
-      });
-    });
-  }
+  useEffect(() => {
+    getMovies();
+  }, []);
 
-  handleDetailPage(movie) {
-    this.props.navigate("/detail-movie", {
+  const handleDetailPage = (movie) => {
+    navigate(`/detail-movie/${movie.id}`, {
       state: {
         src: "https://image.tmdb.org/t/p/original/" + movie.poster_path,
         title: movie.title,
@@ -34,33 +41,25 @@ class NowPlayingMovies extends Component {
         release_date: movie.release_date,
       },
     });
-  }
+  };
 
-  // <h5 className="text-white">
-  //             Popularity: {this.props.location.state.popularity}
-  //           </h5>
-  //           <h5 className="text-white">
-  //             Vote: {this.props.location.state.vote_average}
-  //           </h5>
+  return (
+    <>
+      <NavigationBar />
+      <div className="d-flex flex-wrap justify-content-around mt-3">
+        {movies.map((movie) => {
+          return (
+            <CardMovies
+              src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
+              title={movie.title}
+              key={movie.id}
+              onClick={() => handleDetailPage(movie)}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+};
 
-  render() {
-    return (
-      <>
-        <NavigationBar />
-        <div className="d-flex flex-wrap justify-content-around mt-3">
-          {this.state.ListMovies.map((movie) => {
-            return (
-              <CardMovies
-                src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
-                title={movie.title}
-                key={movie.id}
-                onClick={() => this.handleDetailPage(movie)}
-              />
-            );
-          })}
-        </div>
-      </>
-    );
-  }
-}
-export default withRouter(NowPlayingMovies);
+export default NowPlayingMovies;
