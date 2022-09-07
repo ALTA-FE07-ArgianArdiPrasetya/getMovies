@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   width: 250px;
-  height: 470px !important;
+  height: 490px !important;
 }
 
 .img-movie {
@@ -14,4 +14,9 @@
 .title {
   padding: 10px;
   padding-bottom: 0;
+}
+
+.button-card {
+  width: 200px !important;
+  margin: auto;
 }
