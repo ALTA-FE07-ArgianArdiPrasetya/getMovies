@@ -9,7 +9,7 @@ const CardMovies = ({ src, title, onClick }) => {
   return (
     <>
       <Card
-        className="container-card my-3"
+        className="container-card my-4"
         style={{ background: toggle ? "#EDEADE" : " 	#36454F", height: 550 }}
       >
         <img src={src} alt={title} className="img-movie mx-auto pt-4" />
