@@ -47,9 +47,11 @@ const NowPlayingMovies = () => {
 
   return (
     <>
-      {/* style={{ background: toggle ? "#E9DCC9" : " 	#28282B" }} */}
       <NavigationBar />
-      <div className="d-flex flex-wrap justify-content-around ">
+      <div
+        className="d-flex flex-wrap justify-content-around "
+        style={{ background: toggle ? "#E9DCC9" : " 	#28282B" }}
+      >
         {movies.map((movie) => {
           return (
             <CardMovies
