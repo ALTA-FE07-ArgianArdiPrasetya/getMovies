@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { reduxAction } from "../redux/actions/action";
 
 import NavigationBar from "../components/NavigationBar";
 import CardMovies from "../components/CardMovies";
@@ -13,6 +15,7 @@ const NowPlayingMovies = () => {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const { toggle } = useMoveContext();
+  const dispatch = useDispatch();
 
   const getMovies = async () => {
     await axios
@@ -45,11 +48,27 @@ const NowPlayingMovies = () => {
     });
   };
 
+  const handleFav = (movie) => {
+    const getMovies = localStorage.getItem("favMovies");
+    if (getMovies) {
+      const parsedMovies = JSON.parse(getMovies);
+      parsedMovies.push(movie);
+      localStorage.setItem("favMovies", JSON.stringify(parsedMovies));
+      dispatch(reduxAction("ADD_FAVORITE", parsedMovies));
+    } else {
+      localStorage.setItem("favMovies", JSON.stringify([movie]));
+      dispatch(reduxAction("ADD_FAVORITE", [movie]));
+    }
+    alert("Movie added to favorites");
+  };
+
   return (
     <>
-      {/* style={{ background: toggle ? "#E9DCC9" : " 	#28282B" }} */}
       <NavigationBar />
-      <div className="d-flex flex-wrap justify-content-around ">
+      <div
+        className="d-flex flex-wrap justify-content-around "
+        style={{ background: toggle ? "#E9DCC9" : "#28282B" }}
+      >
         {movies.map((movie) => {
           return (
             <CardMovies
@@ -57,6 +76,7 @@ const NowPlayingMovies = () => {
               title={movie.title}
               key={movie.id}
               onClick={() => handleDetailPage(movie)}
+              onClick2={() => handleFav(movie)}
             />
           );
         })}

@@ -4,7 +4,7 @@ import { useMoveContext } from "../context/ContextProvider";
 
 import "./CardMovies.css";
 
-const CardMovies = ({ src, title, onClick }) => {
+const CardMovies = ({ src, title, onClick, onClick2 }) => {
   const { toggle } = useMoveContext();
   return (
     <>
@@ -27,7 +27,7 @@ const CardMovies = ({ src, title, onClick }) => {
         >
           More Details
         </Button>
-        <Button variant="primary" className="button-card">
+        <Button variant="primary" onClick={onClick2} className="button-card">
           Add To Favorite
         </Button>
       </Card>

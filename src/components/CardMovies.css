@@ -20,3 +20,12 @@
   width: 200px !important;
   margin: auto;
 }
+
+.container-card-fav {
+  background-color: #282c34;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  height: 400px !important;
+}
