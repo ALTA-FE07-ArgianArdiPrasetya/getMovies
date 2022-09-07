@@ -1,30 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Container, Nav, NavbarBrand } from "react-bootstrap";
+import { IoSunny, IoMoon } from "react-icons/io5";
+
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { useMoveContext } from "../context/ContextProvider";
 
 const NavigationBar = () => {
+  const { toggle, handleTheme } = useMoveContext();
   return (
     <>
-      <Navbar sticky="top" className="bg-dark" variant="dark">
-        <Container className="d-flex align-content-center">
+      <Navbar sticky="top" className="bg-black" variant="dark">
+        <Container className="d-flex align-content-center p-3">
           <Nav className="d-flex align-content-center ">
-            <NavbarBrand className="text-light">
-              <Link className="text-decoration-none" to="/">
-                Bukan Bioskop
-              </Link>{" "}
-            </NavbarBrand>
-            <Nav.Link>
-              <Link className="text-decoration-none" to="/">
-                Home{" "}
-              </Link>{" "}
-            </Nav.Link>
+            <Link className="text-decoration-none fw-bold me-2 fs-4" to="/">
+              Bukan Bioskop
+            </Link>{" "}
+          </Nav>
+          <Nav onClick={() => handleTheme()}>
+            {toggle ? (
+              <IoMoon color="#fff" size={30} />
+            ) : (
+              <IoSunny color="#fff" size={30} />
+            )}
           </Nav>
           <Nav>
-            <Nav.Link>
-              <Link className="text-decoration-none" to="/">
-                Favorites{" "}
-              </Link>{" "}
-            </Nav.Link>
+            <Link className="text-decoration-none me-3" to="/">
+              Home{" "}
+            </Link>{" "}
+            <Link className="text-decoration-none" to="/">
+              Favorites{" "}
+            </Link>{" "}
           </Nav>
         </Container>
       </Navbar>

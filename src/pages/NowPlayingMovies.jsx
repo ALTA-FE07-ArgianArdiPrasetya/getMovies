@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import NavigationBar from "../components/NavigationBar";
 import CardMovies from "../components/CardMovies";
+import { useMoveContext } from "../context/ContextProvider";
 
 const baseUrl = "https://api.themoviedb.org/";
 const page = 1;
@@ -11,6 +12,7 @@ const page = 1;
 const NowPlayingMovies = () => {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const { toggle } = useMoveContext();
 
   const getMovies = async () => {
     await axios
@@ -46,7 +48,10 @@ const NowPlayingMovies = () => {
   return (
     <>
       <NavigationBar />
-      <div className="d-flex flex-wrap justify-content-around mt-3">
+      <div
+        className="d-flex flex-wrap justify-content-around "
+        style={{ background: toggle ? "#E9DCC9" : " 	#28282B" }}
+      >
         {movies.map((movie) => {
           return (
             <CardMovies
