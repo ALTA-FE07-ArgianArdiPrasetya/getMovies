@@ -27,7 +27,7 @@ const NavigationBar = () => {
             <Link className="text-decoration-none me-4" to="/">
               Home{" "}
             </Link>{" "}
-            <Link className="text-decoration-none" to="/">
+            <Link className="text-decoration-none" to="/favorite">
               Favorites{" "}
             </Link>{" "}
           </Nav>
